@@ -27,7 +27,6 @@ pipeline {
                 '''
             }
         }
-        
         stage('Push Docker Image') {
             steps {
                 bat '''
@@ -36,7 +35,6 @@ pipeline {
                 '''
             }
         }
-        
         stage('Deploy') {
             steps {
                 bat '''
