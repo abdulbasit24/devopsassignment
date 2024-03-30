@@ -7,8 +7,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    git branch: 'main', credentialsId: 'github-ass', url: '
-https://github.com/abdulbasit24/devopsassignment'
+                    git branch: 'main', credentialsId: 'github-ass', url: 'https://github.com/abdulbasit24/devopsassignment'
                 }
             }
         }
