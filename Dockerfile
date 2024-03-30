@@ -8,7 +8,7 @@
 # ENTRYPOINT ["java","-jar","/app.jar"]
 
 
-FROM maven:3.6.3-jdk-11 AS build
+FROM maven:3.6.3-jdk-17 AS build
  
 # Copy the project files and build the application.
 COPY ./ ./
