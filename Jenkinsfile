@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        DOCKER_IMAGE = 'abdulbasit7/week3part1:1'
+        DOCKER_IMAGE = 'my-spring-boot-app:latest'
     }
     
     stages {
