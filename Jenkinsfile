@@ -6,7 +6,6 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Checkout the source code from SCM
                 script {
                     git branch: 'main', credentialsId: 'github-ass', url: 'https://github.com/abdulbasit24/devopsassignment'
                 }
@@ -14,13 +13,12 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'mvn clean package'  // Use 'sh' instead of 'bat' for cross-platform compatibility
+                sh 'mvn clean package'
             }
         }
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Build Docker image
                     sh "docker build -t ${DOCKER_IMAGE} ."
                 }
             }
@@ -28,7 +26,6 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    // Login to Docker registry and push image
                     sh "echo '#Basit@Docker' | docker login -u abdulbasit7 --password-stdin"
                     sh "docker push ${DOCKER_IMAGE}"
                 }
@@ -37,12 +34,13 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    // Deploy Docker container
-                    sh '''
-                        docker run -d --name my-app-container -p 8080:8080 ${DOCKER_IMAGE}
-                        docker ps
-                        docker logs my-app-container
-                    '''
+                    def proc = "docker run -d --name my-app-container -p 8080:8080 ${DOCKER_IMAGE}".execute()
+                    proc.waitFor() // Wait for the process to finish
+                    echo "Container ID: ${proc.text}"
+                    
+                    // Check container status and logs
+                    sh "docker ps"
+                    sh "docker logs my-app-container"
                 }
             }
         }
