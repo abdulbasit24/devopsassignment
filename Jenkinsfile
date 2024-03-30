@@ -8,7 +8,7 @@ pipeline {
             steps {
                 // Checkout the source code from SCM
                 script {
-                    git credentialsId: 'github-ass', url: 'https://github.com/abdulbasit24/devopsassignment'
+                    git branch: 'main', git credentialsId: 'github-ass', url: 'https://github.com/abdulbasit24/devopsassignment'
                 }
             }
         }
