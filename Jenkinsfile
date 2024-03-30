@@ -13,13 +13,13 @@ pipeline {
         }
         stage('Build') {
             steps {
-                bat '"C:/.Net & Java Software/apache-maven-3.6.3/bin/mvn" clean package'
+                bat '"C:\\.Net & Java Software\\apache-maven-3.6.3\\bin\\mvn" clean package'
             }
         }
         stage('Build Docker Image') {
             steps {
                 bat '''
-                    wsl /usr/bin/docker build -t %DOCKER_IMAGE% .
+                    wsl /usr/bin/docker build -t $DOCKER_IMAGE .
                 '''
             }
         }
@@ -27,7 +27,7 @@ pipeline {
             steps {
                 bat '''
                     echo #Basit@Docker | wsl /usr/bin/docker login -u abdulbasit7 --password-stdin
-                    wsl /usr/bin/docker push %DOCKER_IMAGE%
+                    wsl /usr/bin/docker push $DOCKER_IMAGE
                 '''
             }
         }
@@ -35,11 +35,10 @@ pipeline {
             steps {
                 bat '''
                     export DOCKER_HOST=unix:///var/run/docker.sock
-                    wsl /usr/bin/docker run -d --name my-app-container -p 8080:8080 %DOCKER_IMAGE%
+                    wsl /usr/bin/docker run -d --name my-app-container -p 8080:8080 $DOCKER_IMAGE
                     wsl /usr/bin/docker ps
                     wsl /usr/bin/docker logs my-app-container
                 '''
-                }
             }
         }
     }
