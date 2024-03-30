@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                bat '"C:\.Net & Java Software\apache-maven-3.6.3\bin\mvn" clean package'
+                bat '"C:/.Net & Java Software/apache-maven-3.6.3/bin/mvn" clean package'
             }
         }
         stage('Build Docker Image') {
