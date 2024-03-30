@@ -13,21 +13,21 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'mvn clean package'
+                bat 'mvn clean package'
             }
         }
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build -t ${DOCKER_IMAGE} ."
+                    bat "docker build -t ${DOCKER_IMAGE} ."
                 }
             }
         }
         stage('Push Docker Image') {
             steps {
                 script {
-                    sh "echo '#Basit@Docker' | docker login -u abdulbasit7 --password-stdin"
-                    sh "docker push ${DOCKER_IMAGE}"
+                    bat "echo #Basit@Docker | docker login -u abdulbasit7 --password-stdin"
+                    bat "docker push ${DOCKER_IMAGE}"
                 }
             }
         }
@@ -39,8 +39,8 @@ pipeline {
                     echo "Container ID: ${proc.text}"
                     
                     // Check container status and logs
-                    sh "docker ps"
-                    sh "docker logs my-app-container"
+                    bat "docker ps"
+                    bat "docker logs my-app-container"
                 }
             }
         }
