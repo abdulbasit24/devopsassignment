@@ -18,27 +18,25 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                bat '''
-                    wsl /usr/bin/docker build -t %DOCKER_IMAGE% .
-                '''
+                sh "wsl /usr/bin/docker build -t ${DOCKER_IMAGE} ."
             }
         }
         stage('Push Docker Image') {
             steps {
-                bat '''
-                    echo #Basit@Docker | wsl /usr/bin/docker login -u abdulbasit7 --password-stdin
-                    wsl /usr/bin/docker push %DOCKER_IMAGE%
-                '''
+                sh """
+                    echo '#Basit@Docker' | wsl /usr/bin/docker login -u abdulbasit7 --password-stdin
+                    wsl /usr/bin/docker push ${DOCKER_IMAGE}
+                """
             }
         }
         stage('Deploy') {
             steps {
-                bat '''
+                sh """
                     export DOCKER_HOST=unix:///var/run/docker.sock
-                    wsl /usr/bin/docker run -d --name my-app-container -p 8080:8080 %DOCKER_IMAGE%
+                    wsl /usr/bin/docker run -d --name my-app-container -p 8080:8080 ${DOCKER_IMAGE}
                     wsl /usr/bin/docker ps
                     wsl /usr/bin/docker logs my-app-container
-                '''
+                """
             }
         }
     }
