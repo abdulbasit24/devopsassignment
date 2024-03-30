@@ -33,10 +33,10 @@ RUN mvn clean package
 FROM openjdk:11-jre-slim
 
 # Copy the compiled app from the build stage.
-COPY --from=build target/my-spring-boot-app.jar /app/
+COPY --from=build target/DevopsAssignment-0.0.1-SNAPSHOT.jar /app/
 
 # Set the startup command to run the JAR file.
-CMD ["java", "-jar", "/app/my-spring-boot-app.jar"]
+CMD ["java", "-jar", "/app/DevopsAssignment-0.0.1-SNAPSHOT.jar"]
 
 
  
