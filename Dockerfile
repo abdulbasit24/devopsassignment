@@ -30,7 +30,7 @@ COPY ./ ./
 RUN mvn clean package
 
 # Use the official OpenJDK image to create a lightweight image.
-FROM openjdk:17-alpine
+FROM openjdk:11-jre-slim
 
 # Copy the compiled app from the build stage.
 COPY --from=build target/my-spring-boot-app.jar /app/
